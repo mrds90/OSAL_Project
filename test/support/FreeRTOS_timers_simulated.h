@@ -24,7 +24,7 @@ extern "C" {
 #include "data_types.h"
 /// \endcond
 #include "FreeRTOS_simulated.h"
-#include "OS_MANAGER/timer_manager.h"
+#include "timer_manager.h"
 
 /*========= [PUBLIC MACRO AND CONSTANTS] =======================================*/
 

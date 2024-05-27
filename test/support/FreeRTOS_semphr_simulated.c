@@ -2,7 +2,11 @@
  * @file FreeRTOS_semphr_simulated.c
  * @author Marcos Dominguez
  *
- * @brief Port for FreeRTOS queue API.
+ * @brief Port for FreeRTOS Semaphore API (Simulated).
+ *
+ * This module provides a simulated implementation of FreeRTOS semaphore
+ * functionality. It includes the creation of binary, mutex, and counting
+ * semaphores, along with operations like giving and taking semaphores.
  *
  * @version 0.1
  * @date 2023-11-24
@@ -12,6 +16,7 @@
 
 #include "FreeRTOS_semphr_simulated.h"
 #include "FreeRTOS_queue_simulated.h"
+
 /*========= [PRIVATE MACROS AND CONSTANTS] =====================================*/
 
 /*========= [PRIVATE DATA TYPES] ===============================================*/

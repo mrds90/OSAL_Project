@@ -182,7 +182,7 @@ TaskHandle_t xTaskCreateStatic(TaskFunction_t pxTaskCode, const char *const pcNa
     if ((condition == TEST_CONDITION_TASK_HOLDER_PTR_NULL) || (condition == TEST_CONDITION_STACK_PTR_NULL))
         return NULL;
     else {
-        tick_calls = xTaskGetTickCount();
+        tick_calls++;
         return TEST_TASK_HANDLER;
     }
 }

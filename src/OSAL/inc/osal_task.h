@@ -22,7 +22,9 @@ extern "C" {
 #endif
 
 #include "osal_global.h"
+/// \cond
 #include "data_types.h"
+/// \endcond
 
 
 /*========= [PUBLIC MACRO AND CONSTANTS] =======================================*/
@@ -48,11 +50,11 @@ typedef enum {
  * @brief Structure to hold information about a task.
  */
 typedef struct {
-    char name[OSAL_MAX_TASK_NAME_LEN];      ///< Task name.
-    osal_task_handler_t task_handler;                     ///< Task handler.
-    osal_stack_holder_t *stack_ptr;         ///< Pointer to the memory region for the task stack.
-    osal_task_holder_t *task_hold_ptr;      ///< Pointer where task struct will be held.
-    uint16_t size;                          ///< Size of the stack.
+    char name[OSAL_MAX_TASK_NAME_LEN];      /**< Task name. */
+    osal_task_handler_t task_handler;       /**< Task handler. */
+    osal_stack_holder_t *stack_ptr;         /**< Pointer to the memory region for the task stack. */
+    osal_task_holder_t *task_hold_ptr;      /**< Pointer where task struct will be held. */
+    uint16_t size;                          /**< Size of the stack. */
 } osal_task_t;
 
 /*========= [PUBLIC FUNCTION DECLARATIONS] =====================================*/

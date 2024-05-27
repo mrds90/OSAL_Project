@@ -23,7 +23,9 @@ extern "C" {
 #include "port_timers_freertos.h"
 #endif
 
+/// \cond
 #include "data_types.h"
+/// \endcond
 
 #include "timer_manager.h"
 

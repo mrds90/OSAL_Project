@@ -9,19 +9,25 @@
  */
 
 /*========= [DEPENDENCIES] =====================================================*/
+
 #if (OS_USED == OS_FREERTOS)
 #include "port_timers_freertos.h"
 #if (configSUPPORT_STATIC_ALLOCATION == 1)
 #include "port_task_freertos.h"
 #endif
+
 /*========= [PRIVATE MACROS AND CONSTANTS] =====================================*/
 
 /*========= [PRIVATE DATA TYPES] ===============================================*/
 
+/**
+ * @brief Structure to hold information about a FreeRTOS timer.
+ *
+ */
 typedef struct {
-    TimerHandle_t handler;
-    UtilsCallback_t callback;
-    void *context;
+    TimerHandle_t handler;       /**< FreeRTOS timer handle. */
+    UtilsCallback_t callback;    /**< Callback function to be executed when the timer expires. */
+    void *context;               /**< Context to be passed to the callback function. */
 } port_timer_t;
 
 /*========= [TASK DECLARATIONS] ================================================*/
@@ -30,11 +36,19 @@ typedef struct {
 
 /*========= [INTERRUPT FUNCTION DECLARATIONS] ==================================*/
 
+/**
+ * @brief Callback function for FreeRTOS timers.
+ *
+ * This function is called when a FreeRTOS timer expires. It finds the corresponding timer in the timers_active array
+ * and executes its callback function.
+ *
+ * @param xTimer The handle of the timer that expired.
+ */
 void TimerCallback(TimerHandle_t xTimer);
 
 /*========= [LOCAL VARIABLES] ==================================================*/
 
-port_timer_t timers_active[TIMER_INDEX_QTY] = {[0 ... (TIMER_INDEX_QTY - 1)] = NULL};
+port_timer_t timers_active[TIMER_INDEX_QTY] = {[0 ... (TIMER_INDEX_QTY - 1)] = {.callback = NULL}}; /**< Array to store information about active FreeRTOS timers. */
 
 /*========= [STATE FUNCTION POINTERS] ==========================================*/
 
@@ -53,22 +67,24 @@ port_timers_handler_t PORT_TIMER_Create(const char *name, port_tick_t time, bool
 
 #if (configSUPPORT_STATIC_ALLOCATION == 1)
 /**
- * @brief This is to provide the memory that is used by the RTOS daemon/time task.
+ * @brief Provide memory for the RTOS daemon/time task.
  *
- * If configUSE_STATIC_ALLOCATION is set to 1, so the application must provide an
- * implementation of vApplicationGetTimerTaskMemory() to provide the memory that is
- * used by the RTOS daemon/time task.
+ * If configUSE_STATIC_ALLOCATION is set to 1, this function provides memory for the RTOS daemon/time task.
+ *
+ * @param ppxTimerTaskTCBBuffer   The buffer to store the Timer task's TCB.
+ * @param ppxTimerTaskStackBuffer The buffer to store the Timer task's stack.
+ * @param pulTimerTaskStackSize   The size of the Timer task's stack.
  */
 void vApplicationGetTimerTaskMemory(StaticTask_t **ppxTimerTaskTCBBuffer,
                                     StackType_t **ppxTimerTaskStackBuffer,
                                     uint32_t *pulTimerTaskStackSize) {
     /* If the buffers to be provided to the Timer task are declared inside this
-     * function then they must be declared static - otherwise they will be allocated on
-     * the stack and so not exists after this function exits. */
+     * function, they must be declared static - otherwise, they will be allocated on
+     * the stack and will not exist after this function exits. */
     static StaticTask_t xTimerTaskTCB;
-    static StackType_t uxTimerTaskStack[ configTIMER_TASK_STACK_DEPTH ];
+    static StackType_t uxTimerTaskStack[configTIMER_TASK_STACK_DEPTH];
 
-    /* Pass out a pointer to the StaticTask_t structure in which the Idle
+    /* Pass out a pointer to the StaticTask_t structure in which the Timer
      * task's state will be stored. */
     *ppxTimerTaskTCBBuffer = &xTimerTaskTCB;
 

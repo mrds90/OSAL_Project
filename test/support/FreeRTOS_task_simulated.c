@@ -24,11 +24,13 @@
 
 /*========= [LOCAL VARIABLES] ==================================================*/
 
-bool_t task_create_success = TRUE;
+bool_t task_create_success = TRUE; /**< Indicates whether task creation will be successful. */
 
-TaskHandle_t *handler_to_save = NULL;
+TaskHandle_t *handler_to_save = NULL; /**< Pointer to save the created task handler. */
 
-uint8_t count = 0;
+uint32_t count = 0; /**< Counter used for simulated tick count. */
+
+char *simulated_task_name; /**< Simulated task name. */
 
 /*========= [STATE FUNCTION POINTERS] ==========================================*/
 
@@ -56,6 +58,12 @@ TickType_t __attribute__((weak)) xTaskGetTickCount(void) {
 
 void __attribute__((weak)) vTaskDelay(TickType_t delay_ticks) {
     count += delay_ticks;
+}
+
+void __attribute__((weak)) vTaskDelayUntil(TickType_t *previous_time, TickType_t delay_ticks) {}
+
+char *__attribute__((weak)) pcTaskGetTaskName(TaskHandle_t xTaskToQuery) {
+    return simulated_task_name;
 }
 
 void Task_Simulated_HoldHandler(TaskHandle_t *handle_addr) {

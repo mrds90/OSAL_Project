@@ -15,6 +15,9 @@
 
 /*========= [PRIVATE MACROS AND CONSTANTS] =====================================*/
 
+/**
+ * @brief Calculates the total number of bytes needed for the queue storage.
+ */
 #define BYTES_OF_QUEUE(data_size, element_qty) (data_size * element_qty)
 
 /*========= [PRIVATE DATA TYPES] ===============================================*/
@@ -27,9 +30,24 @@
 
 /*========= [LOCAL VARIABLES] ==================================================*/
 
+/**
+ * @brief Indicates whether queue creation will be successful.
+ */
 bool_t queue_create_success = TRUE;
+
+/**
+ * @brief Indicates whether queue sending will be successful.
+ */
 bool_t queue_send_success = TRUE;
+
+/**
+ * @brief Indicates whether queue receiving will be successful.
+ */
 bool_t queue_receive_success = TRUE;
+
+/*========= [STATE FUNCTION POINTERS] ==========================================*/
+
+/*========= [PUBLIC FUNCTION IMPLEMENTATION] ===================================*/
 
 /*========= [STATE FUNCTION POINTERS] ==========================================*/
 

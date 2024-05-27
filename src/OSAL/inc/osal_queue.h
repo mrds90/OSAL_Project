@@ -20,9 +20,13 @@ extern "C" {
 #include "osal_global.h"
 #if (OS_USED == OS_FREERTOS)
 #include "port_queue_freertos.h"
+#elif (OS_USED == OS_CUSTOM)
+#include "port_queue_custom.h"
 #endif
 
+/// \cond
 #include "data_types.h"
+/// \endcond
 
 /*========= [PUBLIC MACRO AND CONSTANTS] =======================================*/
 
@@ -37,11 +41,11 @@ extern "C" {
  * @brief Structure to hold information about a queue.
  */
 typedef struct {
-    osal_queue_handle_t handler;     ///< Queue handler. */
-    osal_queue_holder_t *holder_ptr; ///< Pointer to the memory region where the semaphore is held.*/
-    uint8_t *queue_storage;          ///< Pointer to the buffer where queued elements will be stored. */
-    uint32_t data_size;              ///< Size of each element in the queue. */
-    uint16_t queue_length;           ///< Maximum number of elements the queue can hold. */
+    osal_queue_handle_t handler;        /**< Queue handler. */
+    osal_queue_holder_t *holder_ptr;    /**< Pointer to the memory region where the semaphore is held.*/
+    uint8_t *queue_storage;             /**< Pointer to the buffer where queued elements will be stored. */
+    uint32_t data_size;                 /**< Size of each element in the queue. */
+    uint16_t queue_length;              /**< Maximum number of elements the queue can hold. */
 } osal_queue_t;
 
 /*========= [PUBLIC FUNCTION DECLARATIONS] =====================================*/

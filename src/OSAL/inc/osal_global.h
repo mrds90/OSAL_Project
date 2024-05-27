@@ -23,7 +23,9 @@ extern "C" {
 #include "port_custom.h"
 #endif
 
+/// \cond
 #include "data_types.h"
+/// \endcond
 
 typedef port_tick_t osal_tick_t;
 
